@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRCTC Clone – RailConnect WiFi System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">Rail<span>Connect</span><small>NextGen</small></div>
+            <nav>
+                <ul>
+                    <li onclick="location.reload()">HOME</li>
+                    <li>PNR STATUS</li>
+                    <li>TRAINS</li>
+                </ul>
+            </nav>
+            <div class="theme-switch">
+                <button id="theme-toggle">
+                    <span id="theme-icon">🌙</span>
+                    <span id="theme-text">Dark Mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- STEP 1: Search Trains -->
+        <section id="step-search" class="step-section">
+            <div class="search-box">
+                <h1>BOOK TICKET</h1>
+                <div class="search-form">
+                    <div class="input-group">
+                        <label>From</label>
+                        <input type="text" id="from-station" placeholder="Source Station" value="NEW DELHI - NDLS">
+                    </div>
+                    <div class="swap-icon">⇄</div>
+                    <div class="input-group">
+                        <label>To</label>
+                        <input type="text" id="to-station" placeholder="Destination Station" value="MUMBAI CENTRAL - MMCT">
+                    </div>
+                    <div class="input-group">
+                        <label>Date</label>
+                        <input type="date" id="journey-date" value="2026-03-25">
+                    </div>
+                    <button id="btn-search">SEARCH</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 2: Train Results -->
+        <section id="step-trains" class="step-section hidden">
+            <div class="results-header">
+                <h2 id="route-title">NDLS → MMCT</h2>
+                <button class="btn-back" onclick="showStep('search')">Modify Search</button>
+            </div>
+            <div id="train-list" class="train-list">
+                <!-- Trains will be injected here -->
+            </div>
+        </section>
+
+        <!-- STEP 3: Passenger Details -->
+        <section id="step-booking" class="step-section hidden">
+            <div class="booking-card">
+                <div class="train-summary-bar">
+                    <h3 id="selected-train-info">12952 - MUMBAI RAJDHANI</h3>
+                    <p id="selected-class-info">3AC (Third AC)</p>
+                </div>
+                
+                <div class="passenger-form">
+                    <div class="passenger-header">
+                        <h3>Passenger Details</h3>
+                        <button type="button" id="btn-add-passenger">+ Add New Passenger</button>
+                    </div>
+                    <div id="passenger-rows-container">
+                        <div class="input-row">
+                            <span class="pass-count">Passenger 1</span>
+                            <input type="text" class="pass-name" placeholder="Passenger Name" required>
+                            <input type="number" class="pass-age" placeholder="Age" required>
+                            <select class="pass-gender">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                            <div class="wifi-choice-row">
+                                <label><input type="checkbox" class="pass-wifi"> Add WiFi</label>
+                            </div>
+                            <button type="button" class="btn-remove-row hidden" onclick="removePassengerRow(this)">✕</button>
+                        </div>
+                    </div>
+                    
+                    <div class="wifi-addon-hint">
+                        <p class="wifi-hint">WiFi ID & Password will be generated only for passengers who select WiFi (₹5 per 100km per person).</p>
+                    </div>
+                    
+                    <button class="btn-primary" id="btn-proceed-payment">PROCEED TO PAYMENT</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 4: Payment -->
+        <section id="step-payment" class="step-section hidden">
+            <div class="payment-card">
+                <h2>Payment Gateway</h2>
+                <div class="fare-breakup">
+                    <p>Ticket Fare: <span id="pay-base-fare">₹0</span></p>
+                    <p id="pay-wifi-row" class="hidden">WiFi Add-on: <span id="pay-wifi-fare">₹0</span></p>
+                    <hr>
+                    <h4>Total Amount: <span id="pay-total-fare">₹0</span></h4>
+                </div>
+
+                <div class="payment-options">
+                    <h3>Select Payment Mode</h3>
+                    <label class="pay-option">
+                        <input type="radio" name="pay-method" value="upi" checked>
+                        <span>BHIM/UPI</span>
+                    </label>
+                    <label class="pay-option">
+                        <input type="radio" name="pay-method" value="card">
+                        <span>Net Banking / Cards</span>
+                    </label>
+                    <label class="pay-option">
+                        <input type="radio" name="pay-method" value="wallet">
+                        <span>IRCTC Wallet</span>
+                    </label>
+                </div>
+
+                <div class="captcha-section">
+                    <div class="captcha-img" id="captcha-text">X 4 Y 9</div>
+                    <input type="text" id="captcha-input" placeholder="Enter Captcha">
+                </div>
+
+                <button class="btn-pay" id="btn-pay-now">MAKE PAYMENT</button>
+            </div>
+        </section>
+
+        <!-- STEP 5: Ticket -->
+        <section id="step-ticket" class="step-section hidden">
+            <div class="ticket-view">
+                <div class="ticket-header">
+                    <div class="irctc-logo">IRCTC E-Ticket</div>
+                    <div class="pnr-box">
+                        <small>PNR Number</small>
+                        <span id="final-pnr">0000000000</span>
+                    </div>
+                </div>
+
+                <div class="ticket-content">
+                    <div class="train-details">
+                        <h2 id="final-train">12952 - RAJDHANI EXP</h2>
+                        <div class="route-info">
+                            <div class="stn"><span id="final-from">NDLS</span><small>Source</small></div>
+                            <div class="arrow">🚆</div>
+                            <div class="stn"><span id="final-to">MMCT</span><small>Destination</small></div>
+                        </div>
+                    </div>
+
+                    <div class="passenger-table">
+                        <div class="table-header">
+                            <span>Name</span><span>Age</span><span>Gender</span><span>Status</span>
+                        </div>
+                        <div id="final-passenger-list">
+                            <!-- Multiple passengers will be injected here -->
+                        </div>
+                    </div>
+
+                    <div id="final-wifi-container" class="hidden">
+                        <!-- WiFi credentials per passenger will be injected here -->
+                    </div>
+                </div>
+
+                <div class="ticket-footer">
+                    <div class="total-paid">Total Amount Paid: <span id="final-total">₹0</span></div>
+                    <div class="actions">
+                        <button onclick="window.print()" class="btn-download">Download Ticket (PDF)</button>
+                        <button onclick="location.reload()">Book Another</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 IRCTC - Indian Railways Catering and Tourism Corporation</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
