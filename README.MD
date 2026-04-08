@@ -1,82 +1,103 @@
-# 🚆 RailConnect – Train WiFi Add-On System
+🚆 RailConnect – Train WiFi Add-On System
 
-## 📌 Overview
+RailConnect is a full-stack MERN prototype application that simulates a modern railway ticket booking system with an innovative onboard WiFi add-on service. It enhances the passenger experience by allowing users to seamlessly book tickets and optionally purchase internet access during their journey.
 
-RailConnect is a web-based prototype that simulates a modern railway ticket booking system with an additional feature to purchase onboard WiFi.
-It allows users to search for trains, book tickets, and enhance their journey by optionally adding WiFi services during the booking process.
+The project also demonstrates a conceptual approach toward future integration with Indian Railway Catering and Tourism Corporation, while currently functioning as a standalone prototype built for demonstration and learning purposes.
 
----
+📌 Overview
 
-## 💡 Inspiration
+RailConnect is designed to solve a real-world problem — the lack of reliable internet connectivity during train travel. By integrating WiFi services directly into the booking flow, this system provides a smarter, more connected, and convenient travel experience.
 
-While traveling on a train, I observed that many passengers were struggling with poor or unavailable internet connectivity.
-This real-world problem inspired me to build RailConnect — a solution that integrates WiFi services directly into the ticket booking system to improve the passenger experience.
+💡 Inspiration
 
----
+During train journeys, many passengers struggle with unstable or unavailable internet access. This project is inspired by that real-life challenge and aims to provide a practical, user-centric solution by embedding WiFi services directly into railway bookings.
 
-## ✨ Features
+✨ Features
+🔐 User Authentication (JWT-based login & registration)
+🔍 Train Search (source → destination)
+🚆 Train Listings (timing, pricing, seat availability)
+🎫 End-to-End Ticket Booking Flow
+📶 WiFi Add-on Option during booking
+💰 Dynamic Pricing based on selected services
+🧾 Booking Summary & Confirmation
+📊 User Dashboard (travel history tracking)
+🌙 Dark Mode / ☀️ Light Mode Toggle
+🎨 Modern UI/UX (responsive & clean design)
 
-* 🔍 Train search functionality (source → destination)
-* 🎫 Ticket booking simulation
-* 📶 Optional WiFi add-on selection
-* 💰 Dynamic price calculation based on WiFi selection
-* 🧾 Booking summary with selected options
-* 🌙 Dark Mode & ☀️ Light Mode toggle
-* 🎨 Clean, user-friendly, and responsive UI
+🛠️ Tech Stack
+🔹 Frontend
+React.js
+Tailwind CSS
+Lucide React
+🔹 Backend
+Node.js
+Express.js
+🔹 Database
+MongoDB (Mongoose)
+🔹 Authentication
+JWT (JSON Web Tokens)
+BcryptJS
 
----
+📂 Project Structure
+RailConnect/
+│── client/        # React frontend (Vite + Tailwind)
+│── server/        # Express backend (MVC architecture)
+│── .gitignore     # Ignored files
+│── README.md      # Documentation
+⚙️ Prerequisites
 
-## 🛠️ Technologies Used
+Make sure you have installed:
 
-* HTML5
-* CSS3
-* Vanilla JavaScript
+Node.js
+MongoDB (local or Atlas)
+🚀 Getting Started
+🔧 Backend Setup
+cd server
+npm install
 
----
+Create a .env file inside the server folder:
 
-## 📂 Project Structure
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/railconnect
+JWT_SECRET=your_jwt_secret_here
 
-```id="ytrpqw"
-RAILWAY/
-│── index.html     # Main UI structure
-│── style.css      # Styling and layout
-│── script.js      # Logic and interactivity
-│── README.md      # Project documentation
-```
+Start the backend server:
 
----
+node index.js
 
-## 🚀 How to Run
+Seed initial train data:
 
-1. Clone or download this repository
-2. Open the `index.html` file in any browser
-3. Explore the booking flow, WiFi add-on, and theme toggle feature
+# PowerShell
+Invoke-RestMethod -Uri "http://localhost:5000/api/trains/seed" -Method Post
 
----
+# OR using curl
+curl -X POST http://localhost:5000/api/trains/seed
+💻 Frontend Setup
+cd client
+npm install
+npm run dev
+🎯 Purpose
 
-## 🎯 Purpose
+This project demonstrates:
 
-The goal of this project is to demonstrate frontend development skills while solving a real-world problem by introducing a practical feature (WiFi add-on) into a railway booking system.
+Full-stack development using the MERN stack
+Solving a real-world problem with a practical feature
+Clean and modern UI/UX design principles
+API integration and authentication handling
+🔮 Future Scope
+💳 Payment Gateway Integration
+📡 Real-time Train Data via APIs
+🧠 Smart WiFi Plan Recommendations
+📱 Mobile-first Optimization
+🌐 Cloud Deployment & CI/CD Integration
+🌍 Real-World Relevance
 
----
+RailConnect is inspired by real railway systems like Indian Railway Catering and Tourism Corporation and explores how additional services like onboard WiFi can be integrated into existing booking platforms to enhance passenger convenience and digital accessibility.
 
-## 🔮 Future Scope
+👨‍💻 Author
 
-This project is currently a frontend prototype. In the future, it will be developed into a full-stack MERN application to make it production-ready.
+Saket Raj
 
-Planned enhancements include:
+📄 License
 
-* ⚙️ Full MERN stack implementation (MongoDB, Express.js, React.js, Node.js)
-* 🔐 User authentication and account management
-* 💳 Secure payment gateway integration
-* 📡 Real-time train data using external APIs
-* 🧠 Smart recommendations (e.g., WiFi plans based on journey duration)
-* 📱 Fully responsive and mobile-first design
-
----
-
-## 👨‍💻 Author
-
-**Saket Raj**
-
----
+This project is licensed under the MIT License.
