@@ -91,6 +91,15 @@ const BookingSummary = () => {
     window.print();
   };
 
+  const generateWifiCredentials = (passenger, pnr) => {
+    if (!passenger.wifiSelected) return null;
+    // Unique ID: RC_PNR_First3CharsOfName
+    const wifiId = `RC_${pnr.slice(-5)}_${passenger.name?.slice(0, 3).toUpperCase()}`;
+    // Secure Password: PNR_Last4_Age
+    const wifiPass = `${pnr.slice(-4)}${passenger.age}`;
+    return { id: wifiId, pass: wifiPass };
+  };
+
   if (loading) return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
       <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600" />
@@ -219,28 +228,46 @@ const BookingSummary = () => {
             </div>
           </div>
 
+          {/* Passenger Details Table IRCTC Style */}
           <div className="mb-8 overflow-x-auto no-scrollbar">
-            <h3 className="text-sm font-black uppercase border-b border-slate-800 pb-1 mb-3">Passenger Details</h3>
-            <table className="w-full text-[10px] min-w-[500px]">
+            <h3 className="text-sm font-black uppercase border-b border-slate-800 pb-1 mb-3">Passenger Details & WiFi Access</h3>
+            <table className="w-full text-[10px] min-w-[600px]">
               <thead>
                 <tr className="text-left border-b border-slate-200">
                   <th className="py-2 font-black"># Name</th>
-                  <th className="py-2 font-black">Age</th>
-                  <th className="py-2 font-black">Gender</th>
+                  <th className="py-2 font-black">Age/Sex</th>
                   <th className="py-2 font-black">Booking Status</th>
-                  <th className="py-2 font-black">Current Status</th>
+                  <th className="py-2 font-black">WiFi ID</th>
+                  <th className="py-2 font-black">WiFi Password</th>
                 </tr>
               </thead>
               <tbody className="font-bold">
-                {booking.passengers?.map((p, idx) => (
-                  <tr key={idx} className="border-b border-slate-100">
-                    <td className="py-2">{idx + 1}. {p.name?.toUpperCase() || 'N/A'}</td>
-                    <td className="py-2">{p.age}</td>
-                    <td className="py-2">{p.gender === 'Male' ? 'M' : 'F'}</td>
-                    <td className="py-2">{p.status === 'WL' ? `WL/${p.wlNumber}` : p.status === 'RAC' ? `RAC/${p.racNumber}` : `CNF/${p.coachNumber}/${p.seatNumber}`}</td>
-                    <td className="py-2">{p.status === 'WL' ? `WL/${p.wlNumber}` : p.status === 'RAC' ? `RAC/${p.racNumber}` : `CNF/${p.coachNumber}/${p.seatNumber}`}</td>
-                  </tr>
-                ))}
+                {booking.passengers?.map((p, idx) => {
+                  const wifi = generateWifiCredentials(p, booking._id);
+                  return (
+                    <tr key={idx} className="border-b border-slate-100">
+                      <td className="py-2">{idx + 1}. {p.name?.toUpperCase() || 'N/A'}</td>
+                      <td className="py-2">{p.age} / {p.gender === 'Male' ? 'M' : 'F'}</td>
+                      <td className="py-2">
+                        {p.status === 'WL' ? `WL/${p.wlNumber}` : p.status === 'RAC' ? `RAC/${p.racNumber}` : `CNF/${p.coachNumber}/${p.seatNumber}`}
+                      </td>
+                      <td className="py-2">
+                        {wifi ? (
+                          <span className="bg-primary-50 text-primary-700 px-1.5 py-0.5 rounded border border-primary-100 font-black">{wifi.id}</span>
+                        ) : (
+                          <span className="text-slate-300">Not Opted</span>
+                        )}
+                      </td>
+                      <td className="py-2">
+                        {wifi ? (
+                          <span className="bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded border border-slate-200 font-black font-mono tracking-tighter">{wifi.pass}</span>
+                        ) : (
+                          <span className="text-slate-300">N/A</span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
