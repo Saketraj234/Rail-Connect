@@ -65,7 +65,7 @@ const Dashboard = () => {
     setLoading(true);
     setProfileMsg({ type: '', text: '' });
     try {
-      const { data } = await axios.get('https://rail-connect.onrender.com/api/bookings/my-bookings');
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/bookings/my-bookings`);
       setBookings(data);
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -79,7 +79,7 @@ const Dashboard = () => {
     if (!bookingToCancel) return;
     setLoading(true);
     try {
-      const { data } = await axios.post(`https://rail-connect.onrender.com/api/bookings/${bookingToCancel}/cancel`);
+      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/bookings/${bookingToCancel}/cancel`);
       setShowCancelModal(false);
       setBookingToCancel(null);
       setLastRefundAmount(data.refundAmount);
@@ -124,7 +124,7 @@ const Dashboard = () => {
     }
     setLoading(true);
     try {
-      await axios.put('https://rail-connect.onrender.com/api/auth/change-password', {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/auth/change-password`, {
         currentPassword: passwordData.currentPassword,
         newPassword: passwordData.newPassword,
       });
