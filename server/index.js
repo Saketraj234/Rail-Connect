@@ -106,6 +106,11 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+// Root Route
+app.get('/', (req, res) => {
+  res.send('RailConnect API is running...');
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/trains', trainRoutes);
