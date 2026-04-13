@@ -30,146 +30,73 @@ const getTrainById = async (req, res) => {
 // Seed initial train data (for testing)
 const seedTrains = async (req, res) => {
   const trains = [
+    // Gaya to Ambala (3 trains)
     { 
-      trainNumber: '12345', 
-      name: 'Rajdhani Express', 
-      source: 'Delhi', 
-      destination: 'Mumbai', 
-      timing: '16:00', 
-      classes: [
-        { className: 'SL', price: 600, seats: 50 },
-        { className: '3A', price: 1500, seats: 40 },
-        { className: '2A', price: 2200, seats: 20 },
-        { className: '1A', price: 3500, seats: 10 }
-      ]
+      trainNumber: '12001', name: 'Gaya-Ambala Express', source: 'Gaya', destination: 'Ambala', timing: '10:30', 
+      classes: [{ className: 'SL', price: 550, seats: 50 }, { className: '3A', price: 1400, seats: 40 }, { className: '2A', price: 2000, seats: 20 }]
     },
     { 
-      trainNumber: '23456', 
-      name: 'Shatabdi Express', 
-      source: 'Delhi', 
-      destination: 'Chandigarh', 
-      timing: '07:30', 
-      classes: [
-        { className: 'SL', price: 400, seats: 60 },
-        { className: '3A', price: 1000, seats: 40 },
-        { className: '2A', price: 1600, seats: 20 }
-      ]
+      trainNumber: '12002', name: 'Ambala Mail', source: 'Gaya', destination: 'Ambala', timing: '15:45', 
+      classes: [{ className: 'SL', price: 520, seats: 60 }, { className: '3A', price: 1350, seats: 40 }]
     },
     { 
-      trainNumber: '34567', 
-      name: 'Duronto Express', 
-      source: 'Kolkata', 
-      destination: 'Mumbai', 
-      timing: '20:15', 
-      classes: [
-        { className: 'SL', price: 700, seats: 50 },
-        { className: '3A', price: 1800, seats: 40 },
-        { className: '2A', price: 2500, seats: 20 },
-        { className: '1A', price: 4000, seats: 10 }
-      ]
+      trainNumber: '12003', name: 'Northern Superfast', source: 'Gaya', destination: 'Ambala', timing: '22:15', 
+      classes: [{ className: 'SL', price: 580, seats: 50 }, { className: '3A', price: 1500, seats: 40 }, { className: '2A', price: 2200, seats: 20 }, { className: '1A', price: 3500, seats: 10 }]
+    },
+
+    // Ambala to New Delhi (5 trains)
+    { 
+      trainNumber: '13001', name: 'Ambala-Delhi Shatabdi', source: 'Ambala', destination: 'New Delhi', timing: '07:00', 
+      classes: [{ className: '3A', price: 800, seats: 40 }, { className: '2A', price: 1200, seats: 20 }]
     },
     { 
-      trainNumber: '45678', 
-      name: 'Garib Rath', 
-      source: 'Delhi', 
-      destination: 'Patna', 
-      timing: '18:45', 
-      classes: [
-        { className: 'SL', price: 350, seats: 100 },
-        { className: '3A', price: 800, seats: 80 }
-      ]
+      trainNumber: '13002', name: 'Capital Link', source: 'Ambala', destination: 'New Delhi', timing: '09:30', 
+      classes: [{ className: 'SL', price: 250, seats: 80 }, { className: '3A', price: 700, seats: 50 }]
     },
     { 
-      trainNumber: '56789', 
-      name: 'Tejas Express', 
-      source: 'Lucknow', 
-      destination: 'Delhi', 
-      timing: '06:10', 
-      classes: [
-        { className: '3A', price: 1200, seats: 40 },
-        { className: '2A', price: 1800, seats: 20 },
-        { className: '1A', price: 2800, seats: 10 }
-      ]
-    },
-    // New Routes Requested
-    { 
-      trainNumber: '11001', 
-      name: 'Gaya-Ambala Express', 
-      source: 'Gaya', 
-      destination: 'Ambala Cantt', 
-      timing: '10:30', 
-      classes: [
-        { className: 'SL', price: 550, seats: 50 },
-        { className: '3A', price: 1400, seats: 40 },
-        { className: '2A', price: 2000, seats: 20 }
-      ]
+      trainNumber: '13003', name: 'Intercity Express', source: 'Ambala', destination: 'New Delhi', timing: '13:15', 
+      classes: [{ className: 'SL', price: 220, seats: 100 }]
     },
     { 
-      trainNumber: '11002', 
-      name: 'Delhi-Gaya Mahabodhi', 
-      source: 'Delhi', 
-      destination: 'Gaya', 
-      timing: '12:15', 
-      classes: [
-        { className: 'SL', price: 500, seats: 50 },
-        { className: '3A', price: 1300, seats: 40 },
-        { className: '2A', price: 1900, seats: 20 },
-        { className: '1A', price: 3000, seats: 10 }
-      ]
+      trainNumber: '13004', name: 'Ambala-Delhi Passenger', source: 'Ambala', destination: 'New Delhi', timing: '17:45', 
+      classes: [{ className: 'SL', price: 180, seats: 120 }]
     },
     { 
-      trainNumber: '11003', 
-      name: 'Gaya-Delhi Express', 
-      source: 'Gaya', 
-      destination: 'Delhi', 
-      timing: '22:00', 
-      classes: [
-        { className: 'SL', price: 500, seats: 50 },
-        { className: '3A', price: 1300, seats: 40 },
-        { className: '2A', price: 1900, seats: 20 }
-      ]
+      trainNumber: '13005', name: 'Night Rider Express', source: 'Ambala', destination: 'New Delhi', timing: '23:30', 
+      classes: [{ className: 'SL', price: 280, seats: 60 }, { className: '3A', price: 750, seats: 40 }]
+    },
+
+    // Gaya to Kiul (2 trains)
+    { 
+      trainNumber: '14001', name: 'Gaya-Kiul Passenger', source: 'Gaya', destination: 'Kiul', timing: '06:30', 
+      classes: [{ className: 'SL', price: 150, seats: 100 }]
     },
     { 
-      trainNumber: '11004', 
-      name: 'Ambala-Gaya Express', 
-      source: 'Ambala Cantt', 
-      destination: 'Gaya', 
-      timing: '14:45', 
-      classes: [
-        { className: 'SL', price: 550, seats: 50 },
-        { className: '3A', price: 1400, seats: 40 },
-        { className: '2A', price: 2000, seats: 20 }
-      ]
+      trainNumber: '14002', name: 'Kiul Link Exp', source: 'Gaya', destination: 'Kiul', timing: '14:20', 
+      classes: [{ className: 'SL', price: 180, seats: 80 }, { className: '3A', price: 500, seats: 40 }]
+    },
+
+    // Gaya to WRS (Warisali Ganj) (2 trains)
+    { 
+      trainNumber: '15001', name: 'Gaya-WRS Local', source: 'Gaya', destination: 'WRS', timing: '08:00', 
+      classes: [{ className: 'SL', price: 100, seats: 150 }]
     },
     { 
-      trainNumber: '11005', 
-      name: 'Patna-Deoghar Passenger', 
-      source: 'Patna', 
-      destination: 'Deoghar', 
-      timing: '05:30', 
-      classes: [
-        { className: 'SL', price: 200, seats: 80 },
-        { className: '3A', price: 600, seats: 40 }
-      ]
+      trainNumber: '15002', name: 'Gaya-WRS Passenger', source: 'Gaya', destination: 'WRS', timing: '16:45', 
+      classes: [{ className: 'SL', price: 120, seats: 100 }]
     },
+
+    // Legacy data for variety
     { 
-      trainNumber: '11006', 
-      name: 'Warisaliganj-Delhi Exp', 
-      source: 'Warisaliganj', 
-      destination: 'Delhi', 
-      timing: '19:15', 
-      classes: [
-        { className: 'SL', price: 450, seats: 50 },
-        { className: '3A', price: 1200, seats: 40 },
-        { className: '2A', price: 1800, seats: 20 }
-      ]
+      trainNumber: '11002', name: 'Delhi-Gaya Mahabodhi', source: 'Delhi', destination: 'Gaya', timing: '12:15', 
+      classes: [{ className: 'SL', price: 500, seats: 50 }, { className: '3A', price: 1300, seats: 40 }, { className: '2A', price: 1900, seats: 20 }, { className: '1A', price: 3000, seats: 10 }]
     }
   ];
 
   try {
     await Train.deleteMany({});
     const createdTrains = await Train.insertMany(trains);
-    res.status(201).json(createdTrains);
+    res.status(201).json({ message: 'Trains seeded successfully', count: createdTrains.length });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

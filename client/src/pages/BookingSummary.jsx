@@ -19,7 +19,7 @@ const BookingSummary = () => {
     const fetchBooking = async () => {
       try {
         console.log('Fetching Booking Data for ID:', id);
-        const { data } = await axios.get(`http://localhost:5000/api/bookings/${id}`);
+        const { data } = await axios.get(`https://rail-connect.onrender.com/api/bookings/${id}`);
         console.log('Booking Data Received:', data);
         setBooking(data);
         

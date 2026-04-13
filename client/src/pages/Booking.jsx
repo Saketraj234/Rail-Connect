@@ -38,7 +38,7 @@ const Booking = () => {
     generateCaptcha();
     const fetchTrain = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/trains/${id}`);
+        const { data } = await axios.get(`https://rail-connect.onrender.com/api/trains/${id}`);
         setTrain(data);
       } catch (error) {
         console.error('Error fetching train:', error);
@@ -93,7 +93,7 @@ const Booking = () => {
     setBookingLoading(true);
     setTimeout(async () => {
       try {
-        const { data } = await axios.post('http://localhost:5000/api/bookings', {
+        const { data } = await axios.post('https://rail-connect.onrender.com/api/bookings', {
           trainId: id,
           travelDate,
           passengers,

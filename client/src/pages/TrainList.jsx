@@ -19,7 +19,7 @@ const TrainList = () => {
     const fetchTrains = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/trains?source=${source}&destination=${destination}`);
+        const { data } = await axios.get(`https://rail-connect.onrender.com/api/trains?source=${source}&destination=${destination}`);
         setTrains(data);
       } catch (error) {
         console.error('Error fetching trains:', error);
