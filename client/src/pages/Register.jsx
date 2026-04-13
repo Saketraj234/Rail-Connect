@@ -129,17 +129,17 @@ const Register = () => {
         </div>
       )}
 
-      <div className="max-w-xl w-full bg-white dark:bg-slate-800 p-10 rounded-[3rem] shadow-2xl border border-slate-100 dark:border-slate-700 relative overflow-hidden">
+      <div className="max-w-xl w-full bg-white dark:bg-slate-800 p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] shadow-2xl border border-slate-100 dark:border-slate-700 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-2 bg-primary-600 shadow-lg shadow-primary-500/50" />
         
         {step === 1 && (
           <>
-            <div className="text-center space-y-4 mb-10">
-              <div className="inline-flex items-center justify-center p-4 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-2xl mb-2">
-                <UserPlus size={32} />
+            <div className="text-center space-y-4 mb-8 sm:mb-10">
+              <div className="inline-flex items-center justify-center p-3 sm:p-4 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-2xl mb-2">
+                <UserPlus size={28} className="sm:w-8 sm:h-8" />
               </div>
-              <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Join RailConnect</h2>
-              <p className="text-slate-500 dark:text-slate-400 font-bold">Create your unique ID to start your journey.</p>
+              <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">Join RailConnect</h2>
+              <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 font-bold px-2">Create your unique ID to start your journey.</p>
             </div>
 
             {error && (

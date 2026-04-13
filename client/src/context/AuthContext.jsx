@@ -18,7 +18,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (rail_id, password) => {
-    const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, { rail_id, password });
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://rail-connect.onrender.com';
+    const { data } = await axios.post(`${apiUrl}/api/auth/login`, { rail_id, password });
     setUser(data);
     localStorage.setItem('userInfo', JSON.stringify(data));
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
@@ -26,7 +27,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (rail_id, name, email, password, mobile) => {
-    const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, { rail_id, name, email, password, mobile });
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://rail-connect.onrender.com';
+    const { data } = await axios.post(`${apiUrl}/api/auth/register`, { rail_id, name, email, password, mobile });
     setUser(data);
     localStorage.setItem('userInfo', JSON.stringify(data));
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
@@ -34,7 +36,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateProfile = async (profileData) => {
-    const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/api/auth/profile`, profileData);
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://rail-connect.onrender.com';
+    const { data } = await axios.put(`${apiUrl}/api/auth/profile`, profileData);
     setUser(data);
     localStorage.setItem('userInfo', JSON.stringify(data));
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;

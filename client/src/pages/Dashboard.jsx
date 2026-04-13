@@ -65,7 +65,8 @@ const Dashboard = () => {
     setLoading(true);
     setProfileMsg({ type: '', text: '' });
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/bookings/my-bookings`);
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://rail-connect.onrender.com';
+      const { data } = await axios.get(`${apiUrl}/api/bookings/my-bookings`);
       setBookings(data);
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -79,7 +80,8 @@ const Dashboard = () => {
     if (!bookingToCancel) return;
     setLoading(true);
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/bookings/${bookingToCancel}/cancel`);
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://rail-connect.onrender.com';
+      const { data } = await axios.post(`${apiUrl}/api/bookings/${bookingToCancel}/cancel`);
       setShowCancelModal(false);
       setBookingToCancel(null);
       setLastRefundAmount(data.refundAmount);
@@ -124,7 +126,8 @@ const Dashboard = () => {
     }
     setLoading(true);
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/api/auth/change-password`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://rail-connect.onrender.com';
+      await axios.put(`${apiUrl}/api/auth/change-password`, {
         currentPassword: passwordData.currentPassword,
         newPassword: passwordData.newPassword,
       });
@@ -149,9 +152,9 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8 px-4 pb-20">
+    <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8 px-3 sm:px-4 pb-20">
       {/* Header Profile Summary */}
-      <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-md border border-slate-100 dark:border-slate-700 flex items-center gap-3 w-fit mb-8">
+      <div className="bg-white dark:bg-slate-800 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl shadow-md border border-slate-100 dark:border-slate-700 flex items-center gap-3 w-fit mb-6 sm:mb-8">
         <div className="relative group">
           <div className="w-10 h-10 rounded-xl overflow-hidden border border-primary-600/20 shadow-lg bg-slate-100 dark:bg-slate-900 flex items-center justify-center">
             {profileData.profilePhoto ? (

@@ -19,7 +19,8 @@ const TrainList = () => {
     const fetchTrains = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/trains?source=${source}&destination=${destination}`);
+        const apiUrl = import.meta.env.VITE_API_URL || 'https://rail-connect.onrender.com';
+        const { data } = await axios.get(`${apiUrl}/api/trains?source=${source}&destination=${destination}`);
         setTrains(data);
       } catch (error) {
         console.error('Error fetching trains:', error);
@@ -43,70 +44,70 @@ const TrainList = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-10 px-4">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-700">
-        <div className="flex items-center gap-6">
-          <div className="bg-primary-50 dark:bg-primary-900/30 p-4 rounded-2xl text-primary-600 dark:text-primary-400">
-            <Train size={32} />
+    <div className="max-w-6xl mx-auto space-y-6 sm:space-y-10 px-3 sm:px-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-5 sm:p-8 bg-white dark:bg-slate-800 rounded-2xl sm:rounded-3xl shadow-lg border border-slate-100 dark:border-slate-700">
+        <div className="flex items-center gap-4 sm:gap-6">
+          <div className="bg-primary-50 dark:bg-primary-900/30 p-3 sm:p-4 rounded-xl sm:rounded-2xl text-primary-600 dark:text-primary-400 shrink-0">
+            <Train size={28} className="sm:w-8 sm:h-8" />
           </div>
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
-              {source} <ChevronRight size={20} className="text-slate-400" /> {destination}
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 sm:gap-3">
+              {source} <ChevronRight size={18} className="text-slate-400 shrink-0" /> {destination}
             </h2>
-            <div className="flex items-center gap-3">
-              <p className="text-slate-500 dark:text-slate-400 font-medium">{date || 'Any Date'}</p>
-              <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-              <span className="px-3 py-1 bg-primary-600/10 text-primary-600 rounded-lg text-[10px] font-black uppercase tracking-widest border border-primary-600/20 shadow-sm">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">{date || 'Any Date'}</p>
+              <span className="hidden xs:block w-1 h-1 rounded-full bg-slate-300"></span>
+              <span className="px-2 py-0.5 bg-primary-600/10 text-primary-600 rounded-lg text-[9px] sm:text-[10px] font-black uppercase tracking-widest border border-primary-600/20 shadow-sm">
                 Quota: {quota}
               </span>
             </div>
           </div>
         </div>
-        <Link to="/" className="flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all font-bold">
-          <Search size={20} /> Modify Search
+        <Link to="/" className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all font-bold text-sm">
+          <Search size={18} /> Modify Search
         </Link>
       </div>
 
-      <div className="space-y-6">
-        <h3 className="text-xl font-bold flex items-center gap-2">
+      <div className="space-y-4 sm:space-y-6">
+        <h3 className="text-lg sm:text-xl font-bold flex items-center gap-2 px-1">
           Available Trains <span className="text-sm font-medium text-slate-400">({trains.length})</span>
         </h3>
 
         {trains.length === 0 ? (
-          <div className="p-16 text-center bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-dashed border-slate-300 dark:border-slate-600">
+          <div className="p-10 sm:p-16 text-center bg-white dark:bg-slate-800 rounded-2xl sm:rounded-3xl shadow-sm border border-dashed border-slate-300 dark:border-slate-600">
             <div className="mb-4 inline-flex items-center justify-center p-4 bg-slate-100 dark:bg-slate-700 rounded-full text-slate-400">
-              <Train size={40} />
+              <Train size={36} className="sm:w-10 sm:h-10" />
             </div>
-            <h3 className="text-xl font-bold">No trains found</h3>
-            <p className="text-slate-500 dark:text-slate-400 mt-2">Try searching with different source or destination.</p>
+            <h3 className="text-lg sm:text-xl font-bold">No trains found</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">Try searching with different source or destination.</p>
           </div>
         ) : (
-          <div className="grid gap-6">
+          <div className="grid gap-4 sm:gap-6">
             {trains.map((train) => (
               <div
                 key={train._id}
-                className="group p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-sm hover:shadow-xl border border-slate-100 dark:border-slate-700 transition-all transform hover:-translate-y-1 flex flex-col md:flex-row items-center justify-between gap-8"
+                className="group p-5 sm:p-8 bg-white dark:bg-slate-800 rounded-2xl sm:rounded-3xl shadow-sm hover:shadow-xl border border-slate-100 dark:border-slate-700 transition-all transform hover:-translate-y-1 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8"
               >
-                <div className="flex-1 space-y-6">
+                <div className="flex-1 w-full space-y-4 sm:space-y-6">
                   <div className="flex items-center justify-between md:justify-start gap-4">
-                    <h3 className="text-2xl font-black text-slate-900 dark:text-white">{train.name}</h3>
-                    <span className="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg text-xs font-bold text-slate-500 dark:text-slate-400 tracking-wider">#{train.trainNumber}</span>
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white truncate">{train.name}</h3>
+                    <span className="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 tracking-wider shrink-0">#{train.trainNumber}</span>
                   </div>
                   
-                  <div className="flex flex-wrap items-center gap-10">
+                  <div className="flex flex-wrap items-center gap-6 sm:gap-10">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-primary-50 dark:bg-primary-900/30 rounded-xl text-primary-600">
+                      <div className="p-2 bg-primary-50 dark:bg-primary-900/30 rounded-xl text-primary-600 shrink-0">
                         <Clock size={20} />
                       </div>
                       <div>
-                        <p className="text-lg font-black">{train.timing}</p>
-                        <p className="text-[10px] text-slate-400 uppercase tracking-widest font-black">Departure</p>
+                        <p className="text-base sm:text-lg font-black">{train.timing}</p>
+                        <p className="text-[9px] sm:text-[10px] text-slate-400 uppercase tracking-widest font-black">Departure</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Class Selection UI */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-4 sm:mt-6">
                     {train.classes && train.classes.map((cls) => {
                       // Status Logic based on travel date and quota
                       const getStatus = (baseSeats) => {

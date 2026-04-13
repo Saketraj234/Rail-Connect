@@ -38,7 +38,8 @@ const Booking = () => {
     generateCaptcha();
     const fetchTrain = async () => {
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/trains/${id}`);
+        const apiUrl = import.meta.env.VITE_API_URL || 'https://rail-connect.onrender.com';
+        const { data } = await axios.get(`${apiUrl}/api/trains/${id}`);
         setTrain(data);
       } catch (error) {
         console.error('Error fetching train:', error);
@@ -93,7 +94,8 @@ const Booking = () => {
     setBookingLoading(true);
     setTimeout(async () => {
       try {
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/bookings`, {
+        const apiUrl = import.meta.env.VITE_API_URL || 'https://rail-connect.onrender.com';
+        const { data } = await axios.post(`${apiUrl}/api/bookings`, {
           trainId: id,
           travelDate,
           passengers,
@@ -160,22 +162,22 @@ const Booking = () => {
         <div className="lg:col-span-8 space-y-8">
           {step === 1 ? (
             <>
-              <div className="flex items-center justify-between">
-                <h2 className="text-3xl font-extrabold flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <h2 className="text-2xl sm:text-3xl font-extrabold flex items-center gap-3">
                   Passenger <span className="text-primary-600">Details</span>
                 </h2>
                 <button
                   type="button"
                   onClick={addPassenger}
                   disabled={passengers.length >= 6}
-                  className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-xl font-bold text-sm hover:bg-primary-700 disabled:opacity-50 transition-all"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-2xl font-black text-sm hover:bg-primary-700 disabled:opacity-50 transition-all shadow-lg shadow-primary-500/25 active:scale-95"
                 >
-                  <Plus size={18} /> Add Passenger
+                  <Plus size={20} /> Add Passenger
                 </button>
               </div>
 
-              <div className="bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-xl border border-slate-100 dark:border-slate-700 space-y-8">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 bg-primary-50 dark:bg-primary-900/10 rounded-3xl border border-primary-100 dark:border-primary-900/30">
+              <div className="bg-white dark:bg-slate-800 p-5 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-slate-100 dark:border-slate-700 space-y-6 sm:space-y-8">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6 p-5 sm:p-6 bg-primary-50 dark:bg-primary-900/10 rounded-2xl sm:rounded-3xl border border-primary-100 dark:border-primary-900/30">
                   <div className="flex items-center gap-6">
                     <div className="bg-primary-600 text-white p-3 rounded-2xl shadow-lg shadow-primary-500/30">
                       <Train size={28} />
@@ -385,7 +387,7 @@ const Booking = () => {
               
               <div className="space-y-4">
                 <div className="flex justify-between text-slate-500 dark:text-slate-400 font-bold text-sm">
-                  <span>Base Fare ({passengers.length} × ₹{train.price})</span>
+                  <span>Base Fare ({passengers.length} × ₹{trainClass.price})</span>
                   <span className="text-slate-900 dark:text-white">₹{baseTotal}</span>
                 </div>
                 {wifiTotal > 0 && (
